@@ -17,7 +17,7 @@ import mimetypes
 mimetypes.add_type('text/javascript', '.js')
 
 # set up the app with listening socket for http requests and appropriate hostname
-PORT = 8081
+PORT = 8080
 HOST = '0.0.0.0'
 
 # get app to serve static files from the public directory
