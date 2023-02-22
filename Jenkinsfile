@@ -11,7 +11,7 @@ pipeline {
         stage('Build Custom NGINX') {
             steps {
                 sh '''
-                cd ./nginx
+                cd ./kubernetes/nginx
                 docker build -t debushee/nginx-python-api:latest -t debushee/nginx-python-api:build-$BUILD_NUMBER .
                 '''
            }
