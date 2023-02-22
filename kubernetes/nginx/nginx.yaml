@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python-api-app
+  name: nginx
   labels:
-    app: python-api-app
+    app: nginx
 spec:
-  replicas: 10
+  replicas: 3
   selector:
     matchLabels:
-      app: python-api-app
+      app: nginx
   strategy:
     rollingUpdate:
       maxSurge: 10%
@@ -16,22 +16,23 @@ spec:
   template:
     metadata:
       labels:
-        app: python-api-app
+        app: nginx
     spec:
       containers:
-      - name: python-api-app-container
-        image: debushee/python-api-app-kubernetes:latest
+      - name: nginx-container
+        image: debushee/nginx-custom:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: python-api-app-service
+  name: nginx-service
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
-    app: python-api-app
+    app: nginx
   ports:
   - protocol: TCP
-    port: 8080
+    port: 80 
+    targetPort: 80
