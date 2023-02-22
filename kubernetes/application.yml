@@ -21,6 +21,7 @@ spec:
       containers:
       - name: python-api-app-container
         image: debushee/python-api-app-kubernetes:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 ---
