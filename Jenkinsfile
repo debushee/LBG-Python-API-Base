@@ -31,6 +31,8 @@ pipeline {
                 sh '''
                 cd ./kubernetes
                 kubectl apply -f .
+                cd ./nginx
+                kubectl apply -f .
                 kubectl rollout restart deployment python-api-app
                 kubectl rollout restart deployment nginx-service
                 '''
