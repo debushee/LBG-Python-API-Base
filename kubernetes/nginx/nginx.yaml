@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: nginx-container
-        image: debushee/nginx-custom:latest
+        image: debushee/nginx-python-api:latest
         ports:
         - containerPort: 80
 ---
