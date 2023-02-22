@@ -5,7 +5,7 @@ metadata:
   labels:
     app: python-api-app
 spec:
-  replicas: 10
+  replicas: 1000000
   selector:
     matchLabels:
       app: python-api-app
