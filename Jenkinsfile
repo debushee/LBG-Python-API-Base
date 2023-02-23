@@ -54,6 +54,21 @@ pipeline {
 						'''
 					}
                 }
+                script {
+                    if ("${GIT_BRANCH}" == 'origin/main') {
+						sh '''
+                        cd ./kubernetes
+						kubectl rollout restart deployment --namespace=production python-api-app
+                        kubectl rollout restart deployment --namespace=production nginx
+						'''
+					} else if ("${GIT_BRANCH}" == 'origin/development') {
+						sh '''
+                        cd ./kubernetes
+						kubectl rollout restart deployment --namespace=development python-api-app
+                        kubectl rollout restart deployment --namespace=development nginx
+						'''
+					}
+                }
             }
         }
         stage('Restart') {
