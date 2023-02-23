@@ -28,11 +28,29 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                if ("${GIT_BRANCH}" == 'origin/main') {
+						sh '''
+                        cd ./kubernetes
+						sed -e 's,{{namespace}},production,g;' application.yml | kubectl apply -f -
+						'''
+					} else if ("${GIT_BRANCH}" == 'origin/development') {
+						sh '''
+                        cd ./kubernetes
+						sed -e 's,{{namespace}},development,g;' application.yml | kubectl apply -f -
+						'''
+					}
+                    if ("${GIT_BRANCH}" == 'origin/main') {
+						sh '''
+                        cd ./nginx
+						sed -e 's,{{namespace}},production,g;' nginx.yml | kubectl apply -f -
+						'''
+					} else if ("${GIT_BRANCH}" == 'origin/development') {
+						sh '''
+                        cd ./nginx
+						sed -e 's,{{namespace}},development,g;' nginx.yml | kubectl apply -f -
+						'''
+					}
                 sh '''
-                cd ./kubernetes
-                kubectl apply -f .
-                cd ./nginx
-                kubectl apply -f .
                 kubectl rollout restart deployment python-api-app
                 kubectl rollout restart deployment nginx
                 '''
