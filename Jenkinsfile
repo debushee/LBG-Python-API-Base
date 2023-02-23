@@ -21,8 +21,6 @@ pipeline {
                 sh '''
                 docker push eu.gcr.io/lbg-cloud-incubation/niall-python-api-app-kubernetes:latest
                 docker push eu.gcr.io/lbg-cloud-incubation/niall-python-api-app-kubernetes:build-$BUILD_NUMBER
-                docker push eu.gcr.io/lbg-cloud-incubation/niall-nginx-python-api:latest
-                docker push eu.gcr.io/lbg-cloud-incubation/niall-nginx-python-api:build-$BUILD_NUMBER
                 '''
             }
         }
