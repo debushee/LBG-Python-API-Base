@@ -52,7 +52,12 @@ pipeline {
 						'''
 					}
                 }
+            }
+        }
+        stage('Restart') {
+            steps {
                 sh '''
+                cd ./kubernetes
                 kubectl rollout restart deployment python-api-app
                 kubectl rollout restart deployment nginx
                 '''
