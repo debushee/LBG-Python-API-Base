@@ -44,12 +44,12 @@ pipeline {
                 script {
                     if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
-                        cd ./nginx
+                        cd ./kubernetes/nginx
 						sed -e 's,{{namespace}},production,g;' nginx.yaml | kubectl apply -f -
 						'''
 					} else if ("${GIT_BRANCH}" == 'origin/development') {
 						sh '''
-                        cd ./nginx
+                        cd ./kubernetes/nginx
 						sed -e 's,{{namespace}},development,g;' nginx.yaml | kubectl apply -f -
 						'''
 					}
@@ -63,6 +63,11 @@ pipeline {
                 kubectl rollout restart deployment python-api-app
                 kubectl rollout restart deployment nginx
                 '''
+            }
+        }
+        stage('Prune') {
+            steps {
+                sh 'docker system prune -f'
             }
         }
     }
