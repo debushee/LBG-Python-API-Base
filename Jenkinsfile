@@ -40,6 +40,8 @@ pipeline {
 						sed -e 's,{{namespace}},development,g;' application.yml | kubectl apply -f -
 						'''
 					}
+                }
+                script{
                     if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
                         cd ./nginx
