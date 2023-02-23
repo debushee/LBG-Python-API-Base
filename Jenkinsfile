@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script{
-                if ("${GIT_BRANCH}" == 'origin/main') {
+                    if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
                         cd ./kubernetes
 						sed -e 's,{{namespace}},production,g;' application.yml | kubectl apply -f -
@@ -51,11 +51,11 @@ pipeline {
 						sed -e 's,{{namespace}},development,g;' nginx.yaml | kubectl apply -f -
 						'''
 					}
+                }
                 sh '''
                 kubectl rollout restart deployment python-api-app
                 kubectl rollout restart deployment nginx
                 '''
-                }
             }
         }
     }
