@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                script{
+                script {
                     if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
                         cd ./kubernetes
@@ -41,7 +41,7 @@ pipeline {
 						'''
 					}
                 }
-                script{
+                script {
                     if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
                         cd ./nginx
