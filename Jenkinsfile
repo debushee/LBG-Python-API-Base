@@ -42,12 +42,12 @@ pipeline {
                     if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
                         cd ./nginx
-						sed -e 's,{{namespace}},production,g;' nginx.yml | kubectl apply -f -
+						sed -e 's,{{namespace}},production,g;' nginx.yaml | kubectl apply -f -
 						'''
 					} else if ("${GIT_BRANCH}" == 'origin/development') {
 						sh '''
                         cd ./nginx
-						sed -e 's,{{namespace}},development,g;' nginx.yml | kubectl apply -f -
+						sed -e 's,{{namespace}},development,g;' nginx.yaml | kubectl apply -f -
 						'''
 					}
                 sh '''
